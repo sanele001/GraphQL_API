@@ -27,3 +27,14 @@ npm run dev
 
 # Run tests
 npm test
+
+Example query
+query {
+  suggestCities(query: "lon", limit: 5) {
+    id
+    name
+    country
+    latitude
+    longitude
+  }
+}
