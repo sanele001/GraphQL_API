@@ -26,15 +26,14 @@ npm install
 npm run dev
 
 # Run tests
-npm test
+npm run test:unit
 
 Example query
-query {
-  suggestCities(query: "lon", limit: 5) {
-    id
-    name
-    country
-    latitude
-    longitude
+query GetActivityRecommendations($cityId: ID!) {
+  getActivityRecommendations(cityId: $cityId) {
+    type
+    explanation
+    score
+    confidence
   }
 }
