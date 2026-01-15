@@ -29,12 +29,11 @@ npm run dev
 npm test
 
 Example query
-query {
-  suggestCities(query: "lon", limit: 5) {
-    id
-    name
-    country
-    latitude
-    longitude
+query GetActivityRecommendations($cityId: ID!) {
+  getActivityRecommendations(cityId: $cityId) {
+    type
+    explanation
+    score
+    confidence
   }
 }

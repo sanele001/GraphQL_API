@@ -7,21 +7,21 @@ export class ActivityRankingService {
   constructor(private weatherService: WeatherService) {}
 
   rankActivities(weatherData: WeatherData): ActivityScore[] {
-    const { current_weather } = weatherData;
+    const current = weatherData.current_weather;
     const scores: ActivityScore[] = [];
 
-    scores.push(this.calculateSkiingScore(current_weather));
-    scores.push(this.calculateSurfingScore(current_weather));
-    scores.push(this.calculateIndoorSightseeingScore(current_weather));
-    scores.push(this.calculateOutdoorSightseeingScore(current_weather));
+    scores.push(this.calculateSkiingScore(current));
+    scores.push(this.calculateSurfingScore(current));
+    scores.push(this.calculateIndoorSightseeingScore(current));
+    scores.push(this.calculateOutdoorSightseeingScore(current));
 
 
     return scores.sort((a, b) => b.score - a.score);
   }
 
   private calculateSkiingScore(current: any): ActivityScore {
-    const temperature = current.temperature_2m;
-    const isSnowy = this.weatherService.isSnowy(current.weather_code);
+    const temperature = current.temperature;
+    const isSnowy = this.weatherService.isSnowy(current.weathercode);
     const precipitation = current.precipitation;
 
     let score = 0;
@@ -65,7 +65,7 @@ export class ActivityRankingService {
   }
 
   private calculateSurfingScore(current: any): ActivityScore {
-    const temperature = current.temperature_2m;
+    const temperature = current.temperature;
     const windSpeed = current.wind_speed_10m;
     const precipitation = current.precipitation;
 
@@ -112,8 +112,8 @@ export class ActivityRankingService {
   }
 
   private calculateIndoorSightseeingScore(current: any): ActivityScore {
-    const isRainy = this.weatherService.isRainy(current.weather_code);
-    const temperature = current.temperature_2m;
+    const isRainy = this.weatherService.isRainy(current.weathercode);
+    const temperature = current.temperature;
     const precipitation = current.precipitation;
 
     let score = 0;
@@ -153,8 +153,8 @@ export class ActivityRankingService {
   }
 
   private calculateOutdoorSightseeingScore(current: any): ActivityScore {
-    const isGoodWeather = this.weatherService.isGoodWeatherForOutdoor(current.weather_code);
-    const temperature = current.temperature_2m;
+    const isGoodWeather = this.weatherService.isGoodWeatherForOutdoor(current.weathercode);
+    const temperature = current.temperature;
     const precipitation = current.precipitation;
     const isDay = current.is_day === 1;
 
