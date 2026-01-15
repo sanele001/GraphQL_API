@@ -26,7 +26,7 @@ npm install
 npm run dev
 
 # Run tests
-npm test
+npm run test:unit
 
 Example query
 query GetActivityRecommendations($cityId: ID!) {
